@@ -21,8 +21,12 @@ export async function getUpcomingEvents(): Promise<ChapterEvent[]> {
     // Fail the build rather than publish an empty calendar; Netlify keeps the last good deploy live.
     if (!res.ok) throw new Error(`ChapterOps events feed returned ${res.status}`);
     events = (await res.json()).events;
-  } else {
+  } else if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+    // Local demo mode (no Sanity either): show sample events.
     events = sampleFeed.events;
+  } else {
+    // Real site, ChapterOps feed not connected yet: show no events rather than fake ones.
+    events = [];
   }
 
   const now = Date.now();
