@@ -1,7 +1,7 @@
 import { PortableText, type PortableTextComponents, type PortableTextBlock } from "@portabletext/react";
 import { imageUrl } from "@/lib/content";
 
-function youtubeId(url: string): string | null {
+export function youtubeId(url: string): string | null {
   const m = url.match(/(?:youtu\.be\/|v=|embed\/)([\w-]{11})/);
   return m ? m[1] : null;
 }

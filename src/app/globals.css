@@ -3,8 +3,9 @@
 /* Phi Beta Sigma: royal blue and pure white */
 @theme {
   --color-sigma: #0f3d8c;
-  --color-sigma-dark: #0a2a61;
-  --color-sigma-light: #e8eef9;
+  /* Editors can change --color-sigma in Site Settings; the tints follow it. */
+  --color-sigma-dark: color-mix(in oklab, var(--color-sigma) 68%, black);
+  --color-sigma-light: color-mix(in oklab, var(--color-sigma) 9%, white);
   --color-ink: #1a1f2b;
   --color-muted: #5b6475;
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
@@ -25,3 +26,11 @@ body {
 .prose-content a { @apply text-sigma underline underline-offset-2 hover:text-sigma-dark; }
 .prose-content blockquote { @apply border-l-4 border-sigma pl-4 italic text-muted my-6; }
 .prose-content img { @apply rounded-lg my-6; }
+
+/* Sections on brand/dark backgrounds */
+.on-dark h1,
+.on-dark h2,
+.on-dark blockquote,
+.on-dark .prose-content h3 { color: inherit; }
+.on-dark .prose-content a { @apply text-white; }
+.on-dark .prose-content blockquote { @apply border-white/60 text-white/85; }

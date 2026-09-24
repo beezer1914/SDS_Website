@@ -48,11 +48,17 @@ npm run check        # verifies old URLs still resolve / redirect (run after bui
 - Before touching DNS, write down the current **MX records** so `@sds1914.com` email keeps working.
 - Point the domain to Netlify; keep WordPress around for about 30 days as a fallback.
 
-## How editors add a page
-Studio → **Pages** → **+** → fill in Title, click **Generate** for the web address, pick which menu it goes in, write the content → **Publish**. The live site updates in about a minute.
+## How editors build pages
+- **Home page:** Studio → **Home page**.
+- **New page:** Studio → **All pages** → **+**. Under **Page settings**, fill in the title, click **Generate** for the web address, and pick a menu.
+- **Content** tab: **Add item** to add sections (Banner, Text, Image + text, Cards, Photo gallery, Video, Call to action, Quote, Upcoming events). Drag to reorder. Each section's **Style** group sets its background and spacing.
+- **Site Settings → Look & feel:** logo/seal, brand color, and heading font for the whole site.
+- **Publish.** The live site updates in about a minute.
+- The hidden page `/section-examples/` shows every section type.
 
 ## Where things live
 - Menu sections: `src/lib/site.ts` (`NAV_SECTIONS`)
-- Page and settings fields: `studio/schemaTypes/index.ts`
+- Page and settings fields: `studio/schemaTypes/index.ts`; section types: `studio/schemaTypes/sections.ts`
+- How sections render: `src/components/PageSections.tsx`
 - Old-URL redirects: `public/_redirects`
-- Sample content (used when Sanity isn't connected): `src/data/`
+- Starter content: `studio/seed/starter-content.ndjson` (also what the site shows when Sanity isn't connected)

@@ -1,5 +1,6 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
+import { colorInput } from "@sanity/color-input";
 import { schemaTypes } from "./schemaTypes";
 
 export default defineConfig({
@@ -15,13 +16,18 @@ export default defineConfig({
           .title("Content")
           .items([
             S.listItem()
-              .title("Site Settings (home page, contact, socials)")
+              .title("Home page")
+              .id("homePage")
+              .child(S.document().schemaType("page").documentId("page-home")),
+            S.listItem()
+              .title("Site Settings (logo, colors, contact)")
               .id("siteSettings")
               .child(S.document().schemaType("siteSettings").documentId("siteSettings")),
             S.divider(),
-            S.documentTypeListItem("page").title("Pages"),
+            S.documentTypeListItem("page").title("All pages"),
           ]),
     }),
+    colorInput(),
   ],
   schema: {
     types: schemaTypes,

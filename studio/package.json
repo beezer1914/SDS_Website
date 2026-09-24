@@ -8,6 +8,8 @@
     "typegen": "sanity schemas extract --force && sanity typegen generate"
   },
   "dependencies": {
+    "@sanity/color-input": "^6.1.4",
+    "@sanity/icons": "^5.2.2",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "sanity": "^6.16.0",

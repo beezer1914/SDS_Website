@@ -22,17 +22,108 @@ export type SanityImageAssetReference = {
   [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
 };
 
-export type Page = {
-  _id: string;
-  _type: "page";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  section?: "about" | "programs" | "webinars" | "none";
-  navOrder?: number;
-  summary?: string;
+export type CardImage = {
+  asset?: SanityImageAssetReference;
+  media?: unknown; // Unable to locate the referenced type "card.image.media" in schema
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  alt?: string;
+  _type: "image";
+};
+
+export type EventList = {
+  _type: "eventList";
+  heading?: string;
+  limit?: number;
+  background?: "white" | "light" | "brand" | "dark";
+  spacing?: "compact" | "normal" | "spacious";
+};
+
+export type Quote = {
+  _type: "quote";
+  quote?: string;
+  name?: string;
+  role?: string;
+  photo?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  background?: "white" | "light" | "brand" | "dark";
+  spacing?: "compact" | "normal" | "spacious";
+};
+
+export type CallToAction = {
+  _type: "callToAction";
+  heading?: string;
+  text?: string;
+  buttons?: Array<
+    {
+      _key: string;
+    } & Button
+  >;
+  background?: "white" | "light" | "brand" | "dark";
+  spacing?: "compact" | "normal" | "spacious";
+};
+
+export type Video = {
+  _type: "video";
+  heading?: string;
+  url?: string;
+  caption?: string;
+  background?: "white" | "light" | "brand" | "dark";
+  spacing?: "compact" | "normal" | "spacious";
+};
+
+export type Gallery = {
+  _type: "gallery";
+  heading?: string;
+  images?: Array<{
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  columns?: 2 | 3 | 4;
+  background?: "white" | "light" | "brand" | "dark";
+  spacing?: "compact" | "normal" | "spacious";
+};
+
+export type CardGrid = {
+  _type: "cardGrid";
+  heading?: string;
+  intro?: string;
+  cards?: Array<{
+    image?: CardImage;
+    title?: string;
+    text?: string;
+    link?: string;
+    _type: "card";
+    _key: string;
+  }>;
+  columns?: 2 | 3 | 4;
+  background?: "white" | "light" | "brand" | "dark";
+  spacing?: "compact" | "normal" | "spacious";
+};
+
+export type ImageText = {
+  _type: "imageText";
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  heading?: string;
   body?: Array<
     | {
         children?: Array<{
@@ -69,39 +160,20 @@ export type Page = {
         _key: string;
       }
   >;
+  buttons?: Array<
+    {
+      _key: string;
+    } & Button
+  >;
+  imageSide?: "left" | "right";
+  background?: "white" | "light" | "brand" | "dark";
+  spacing?: "compact" | "normal" | "spacious";
 };
 
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
-
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
-};
-
-export type SiteSettings = {
-  _id: string;
-  _type: "siteSettings";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  heroTitle?: string;
-  heroSubtitle?: string;
-  welcomeMessage?: Array<
+export type TextSection = {
+  _type: "textSection";
+  heading?: string;
+  body?: Array<
     | {
         children?: Array<{
           marks?: Array<string>;
@@ -137,11 +209,195 @@ export type SiteSettings = {
         _key: string;
       }
   >;
-  presidentName?: string;
+  width?: "narrow" | "wide";
+  align?: "left" | "center";
+  background?: "white" | "light" | "brand" | "dark";
+  spacing?: "compact" | "normal" | "spacious";
+};
+
+export type Hero = {
+  _type: "hero";
+  heading?: string;
+  subheading?: string;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  buttons?: Array<
+    {
+      _key: string;
+    } & Button
+  >;
+  align?: "left" | "center";
+  size?: "compact" | "tall";
+  background?: "white" | "light" | "brand" | "dark";
+  spacing?: "compact" | "normal" | "spacious";
+};
+
+export type Button = {
+  _type: "button";
+  label?: string;
+  link?: string;
+  style?: "solid" | "outline";
+};
+
+export type Page = {
+  _id: string;
+  _type: "page";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  sections?: Array<
+    | ({
+        _key: string;
+      } & Hero)
+    | ({
+        _key: string;
+      } & TextSection)
+    | ({
+        _key: string;
+      } & ImageText)
+    | ({
+        _key: string;
+      } & CardGrid)
+    | ({
+        _key: string;
+      } & Gallery)
+    | ({
+        _key: string;
+      } & Video)
+    | ({
+        _key: string;
+      } & CallToAction)
+    | ({
+        _key: string;
+      } & Quote)
+    | ({
+        _key: string;
+      } & EventList)
+  >;
+  body?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?:
+          "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: SanityImageAssetReference;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+    | {
+        url?: string;
+        title?: string;
+        _type: "youtube";
+        _key: string;
+      }
+  >;
+  slug?: Slug;
+  section?: "about" | "programs" | "webinars" | "none";
+  navOrder?: number;
+  summary?: string;
+  hideTitle?: boolean;
+};
+
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
+export type SiteSettings = {
+  _id: string;
+  _type: "siteSettings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  logo?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  brandColor?: Color;
+  headingFont?: "serif" | "sans" | "bold";
   contactEmail?: string;
   facebookUrl?: string;
   instagramUrl?: string;
   youtubeUrl?: string;
+};
+
+export type Color = {
+  _type: "color";
+  hex?: string;
+  alpha?: number;
+  hsl?: HslaColor;
+  hsv?: HsvaColor;
+  rgb?: RgbaColor;
+};
+
+export type RgbaColor = {
+  _type: "rgbaColor";
+  r?: number;
+  g?: number;
+  b?: number;
+  a?: number;
+};
+
+export type HsvaColor = {
+  _type: "hsvaColor";
+  h?: number;
+  s?: number;
+  v?: number;
+  a?: number;
+};
+
+export type HslaColor = {
+  _type: "hslaColor";
+  h?: number;
+  s?: number;
+  l?: number;
+  a?: number;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -243,11 +499,26 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes =
   | SanityImageAssetReference
+  | CardImage
+  | EventList
+  | Quote
+  | CallToAction
+  | Video
+  | Gallery
+  | CardGrid
+  | ImageText
+  | TextSection
+  | Hero
+  | Button
   | Page
+  | Slug
   | SanityImageCrop
   | SanityImageHotspot
-  | Slug
   | SiteSettings
+  | Color
+  | RgbaColor
+  | HsvaColor
+  | HslaColor
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions

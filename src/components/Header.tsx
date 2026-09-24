@@ -6,7 +6,7 @@ import { CHAPTEROPS_URL } from "@/lib/site";
 
 export type NavGroup = { label: string; links: { title: string; href: string }[] };
 
-export default function Header({ groups }: { groups: NavGroup[] }) {
+export default function Header({ groups, logoUrl }: { groups: NavGroup[]; logoUrl: string | null }) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
@@ -14,9 +14,14 @@ export default function Header({ groups }: { groups: NavGroup[] }) {
     <header className="sticky top-0 z-40 border-b border-sigma-light bg-white/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-3" onClick={close}>
-          <span className="grid h-11 w-11 place-items-center rounded-full bg-sigma font-display text-lg text-white">
-            ΣΔΣ
-          </span>
+          {logoUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={logoUrl} alt="" className="h-11 w-11 object-contain" />
+          ) : (
+            <span className="grid h-11 w-11 place-items-center rounded-full bg-sigma font-display text-lg text-white">
+              ΣΔΣ
+            </span>
+          )}
           <span className="leading-tight">
             <span className="block font-display text-lg text-sigma-dark">Sigma Delta Sigma</span>
             <span className="block text-xs text-muted">Phi Beta Sigma Fraternity, Inc.</span>
