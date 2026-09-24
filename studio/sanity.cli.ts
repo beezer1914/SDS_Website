@@ -9,9 +9,9 @@ export default defineCliConfig({
   studioHost: "sds1914",
   typegen: {
     enabled: true,
-    path: "../web/src/**/*.{ts,tsx,js,jsx}",
+    path: "../src/**/*.{ts,tsx,js,jsx}",
     schema: "schema.json",
-    generates: "../web/sanity.types.ts",
+    generates: "../src/sanity.types.ts",
     overloadClientMethods: true,
   },
 });
