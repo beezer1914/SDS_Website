@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sigma Delta Sigma Chapter Website
 
-## Getting Started
+Replacement for the WordPress site at sds1914.com.
 
-First, run the development server:
+| Piece | What it does |
+|---|---|
+| **Next.js + Tailwind** (`src/`) | Static site, exported to plain HTML (`out/`) |
+| **Sanity Studio** (`studio/`) | Where the brothers edit pages and home-page content |
+| **ChapterOps** | Member login, dues, directory, documents, and the source of public events |
+| **Netlify** | Hosting, contact form, redirects, rebuilds |
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+Brother edits in Sanity ──publish──┐
+                                   ├──> Netlify build hook ──> rebuild ──> sds1914.com
+ChapterOps public event change ────┘
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Local development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev          # http://localhost:3000, uses sample content until Sanity is connected
+npm run build        # static export to out/
+npm run check        # verifies old URLs still resolve / redirect (run after build)
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## One-time setup (Brandon)
 
-## Learn More
+### 1. Sanity project
+1. `cd studio && npm install`
+2. `npx sanity login`, then `npx sanity projects create "SDS Website"` and note the **project ID**.
+3. Create the dataset if prompted: `npx sanity datasets create production --visibility public`.
+4. Deploy the Studio: `SANITY_STUDIO_PROJECT_ID=<id> npm run deploy` → **https://sds1914.sanity.studio**
+5. In sanity.io/manage → project → **API → CORS origins**, add `https://sds1914.sanity.studio`.
+6. **Members → Invite** the two brothers with the **Editor** role. They sign in with Google or email; no GitHub or code needed.
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Netlify
+1. New site from this Git repo. `netlify.toml` already sets the build.
+2. Environment variables:
+   - `NEXT_PUBLIC_SANITY_PROJECT_ID` = the Sanity project ID
+   - `NEXT_PUBLIC_SANITY_DATASET` = `production`
+   - `CHAPTEROPS_EVENTS_URL` = the ChapterOps public feed (once it exists, see `docs/chapterops-events-feed.md`)
+3. **Site configuration → Build hooks**: create one called "Content publish".
+4. In Sanity (sanity.io/manage → **API → Webhooks**): add that build hook URL, trigger on create/update/delete, filter `_type in ["page", "siteSettings"]`.
+5. **Forms**: enable form detection, then set a notification to email `sigmadeltasigma@sds1914.com`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Cutover (later)
+- Before touching DNS, write down the current **MX records** so `@sds1914.com` email keeps working.
+- Point the domain to Netlify; keep WordPress around for about 30 days as a fallback.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## How editors add a page
+Studio → **Pages** → **+** → fill in Title, click **Generate** for the web address, pick which menu it goes in, write the content → **Publish**. The live site updates in about a minute.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Where things live
+- Menu sections: `src/lib/site.ts` (`NAV_SECTIONS`)
+- Page and settings fields: `studio/schemaTypes/index.ts`
+- Old-URL redirects: `public/_redirects`
+- Sample content (used when Sanity isn't connected): `src/data/`

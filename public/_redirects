@@ -1,0 +1,12 @@
+# Netlify redirects. Old WordPress member pages now live in ChapterOps.
+/login/*               https://chapterops.bluecolumnsystems.com/  301
+/profile/*             https://chapterops.bluecolumnsystems.com/  301
+/password-recovery/*   https://chapterops.bluecolumnsystems.com/  301
+/chapter-dues/*        https://chapterops.bluecolumnsystems.com/  301
+/constitution/*        https://chapterops.bluecolumnsystems.com/  301
+/directory/*           https://chapterops.bluecolumnsystems.com/  301
+/chapter-report/*      https://chapterops.bluecolumnsystems.com/  301
+/templates/*           https://chapterops.bluecolumnsystems.com/  301
+
+# Old calendar plugin page
+/calendar/*            /events/  301
