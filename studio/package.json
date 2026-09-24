@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "sanity dev",
     "build": "sanity build",
-    "deploy": "sanity deploy"
+    "deploy": "sanity deploy",
+    "typegen": "sanity schemas extract --force && sanity typegen generate"
   },
   "dependencies": {
     "react": "^19.3.0",

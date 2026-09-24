@@ -7,4 +7,11 @@ export default defineCliConfig({
   },
   // Editors will log in at https://sds1914.sanity.studio after `npm run deploy`
   studioHost: "sds1914",
+  typegen: {
+    enabled: true,
+    path: "../web/src/**/*.{ts,tsx,js,jsx}",
+    schema: "schema.json",
+    generates: "../web/sanity.types.ts",
+    overloadClientMethods: true,
+  },
 });

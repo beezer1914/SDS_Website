@@ -39,13 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# sanity studio
-/studio/node_modules
-/studio/dist
-/studio/.sanity
-/studio/schema.json
-
-# agent skills (local cache; reproduce via `npx skills install`)
-/.agents
-/.claude
