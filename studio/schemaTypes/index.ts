@@ -21,6 +21,22 @@ const siteSettings = defineType({
   ],
   fields: [
     defineField({
+      name: "headerTitle",
+      title: "Header title",
+      description: "The first line beside the logo. Leave empty for Sigma Delta Sigma.",
+      type: "string",
+      initialValue: "Sigma Delta Sigma",
+      group: "look",
+    }),
+    defineField({
+      name: "headerSubtitle",
+      title: "Header subtitle",
+      description: "The smaller line beneath the header title. Leave empty for Phi Beta Sigma Fraternity, Inc.",
+      type: "string",
+      initialValue: "Phi Beta Sigma Fraternity, Inc.",
+      group: "look",
+    }),
+    defineField({
       name: "logo",
       title: "Logo / chapter seal",
       description: "Shown in the top-left corner. A square image works best.",

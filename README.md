@@ -52,7 +52,8 @@ npm run check        # verifies old URLs still resolve / redirect (run after bui
 - **Home page:** Studio → **Home page**.
 - **New page:** Studio → **All pages** → **+**. Under **Page settings**, fill in the title, click **Generate** for the web address, and pick a menu.
 - **Content** tab: **Add item** to add sections (Banner, Text, Image + text, Cards, Photo gallery, Video, Call to action, Quote, Upcoming events). Drag to reorder. Each section's **Style** group sets its background and spacing.
-- **Site Settings → Look & feel:** logo/seal, brand color, and heading font for the whole site.
+- **Site Settings → Look & feel:** header title and subtitle, logo/seal, brand color, and heading font for the whole site. Empty header text fields use the original chapter and fraternity names.
+- **Photos:** editors with Sanity access can open a page → **Content** → **Add item** → **Photo gallery**, upload images, add descriptions and captions, and publish. Members without Sanity access need to send their photos to an editor; the website has no member photo submission form.
 - **Publish.** The live site updates in about a minute.
 - The hidden page `/section-examples/` shows every section type.
 

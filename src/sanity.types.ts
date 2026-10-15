@@ -352,6 +352,8 @@ export type SiteSettings = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  headerTitle?: string;
+  headerSubtitle?: string;
   logo?: {
     asset?: SanityImageAssetReference;
     media?: unknown;

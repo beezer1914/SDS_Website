@@ -6,7 +6,12 @@ import { CHAPTEROPS_URL } from "@/lib/site";
 
 export type NavGroup = { label: string; links: { title: string; href: string }[] };
 
-export default function Header({ groups, logoUrl }: { groups: NavGroup[]; logoUrl: string | null }) {
+export default function Header({ groups, logoUrl, headerTitle, headerSubtitle }: {
+  groups: NavGroup[];
+  logoUrl: string | null;
+  headerTitle?: string;
+  headerSubtitle?: string;
+}) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
@@ -23,8 +28,8 @@ export default function Header({ groups, logoUrl }: { groups: NavGroup[]; logoUr
             </span>
           )}
           <span className="leading-tight">
-            <span className="block font-display text-lg text-sigma-dark">Sigma Delta Sigma</span>
-            <span className="block text-xs text-muted">Phi Beta Sigma Fraternity, Inc.</span>
+            <span className="block font-display text-lg text-sigma-dark">{headerTitle?.trim() || "Sigma Delta Sigma"}</span>
+            <span className="block text-xs text-muted">{headerSubtitle?.trim() || "Phi Beta Sigma Fraternity, Inc."}</span>
           </span>
         </Link>
 

@@ -38,7 +38,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en" className="h-full antialiased" style={theme}>
       <body className="flex min-h-full flex-col">
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:p-3">Skip to content</a>
-        <Header groups={groups} logoUrl={imageUrl(settings.logo, 160)} />
+        <Header
+          groups={groups}
+          logoUrl={imageUrl(settings.logo, 160)}
+          headerTitle={settings.headerTitle}
+          headerSubtitle={settings.headerSubtitle}
+        />
         <main id="main" className="flex-1">{children}</main>
         <Footer settings={settings} />
       </body>
