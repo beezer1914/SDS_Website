@@ -4,3 +4,5 @@
 
 [build.environment]
   NODE_VERSION = "22"
+  # Public SDS events only. Officer/member data is never included in this feed.
+  CHAPTEROPS_EVENTS_URL = "https://chapterops.bluecolumnsystems.com/api/events/public/chapters/65a2397f-3f82-4fd1-8aca-f66ad9839b9d/events"

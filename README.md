@@ -39,7 +39,7 @@ npm run check        # verifies old URLs still resolve / redirect (run after bui
 2. Environment variables:
    - `NEXT_PUBLIC_SANITY_PROJECT_ID` = the Sanity project ID
    - `NEXT_PUBLIC_SANITY_DATASET` = `production`
-   - `CHAPTEROPS_EVENTS_URL` = the ChapterOps public feed (once it exists, see `docs/chapterops-events-feed.md`)
+   - `CHAPTEROPS_EVENTS_URL` is already set for SDS in `netlify.toml`. Deploy the ChapterOps public feed first; see `docs/chapterops-events-feed.md` for activation and build-hook setup.
 3. **Site configuration → Build hooks**: create one called "Content publish".
 4. In Sanity (sanity.io/manage → **API → Webhooks**): add that build hook URL, trigger on create/update/delete, filter `_type in ["page", "siteSettings"]`.
 5. **Forms**: enable form detection, then set a notification to email `sigmadeltasigma@sds1914.com`.
