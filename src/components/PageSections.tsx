@@ -79,8 +79,8 @@ async function SectionView({ s, homepage }: { s: Section; homepage: boolean }) {
               <img src={bg || "/images/scholarship-presentation.webp"}
                 srcSet={bg ? undefined : "/images/scholarship-presentation-small.webp 720w, /images/scholarship-presentation.webp 1400w"}
                 sizes="(max-width: 780px) 100vw, 54vw" width={1400} height={933} fetchPriority="high"
-                alt={bg ? s.image?.alt ?? "" : "Molly Lin and the brothers of Sigma Delta Sigma hold her scholarship check."} />
-              {!bg && <figcaption><span>Education</span> Anna James Academic Scholarship presentation</figcaption>}
+                alt={bg ? s.image?.alt ?? "" : "Donovan J. Sutton holds his $500 scholarship check with two brothers of Sigma Delta Sigma."} />
+              {!bg && <figcaption><span>Education</span> 2025 Bishop Stephen Hall Sr. Scholarship presentation</figcaption>}
             </figure>
           </section>
         );
