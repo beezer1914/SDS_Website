@@ -10,7 +10,7 @@ import { NAV_SECTIONS } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: { default: "Sigma Delta Sigma Chapter – Phi Beta Sigma Fraternity, Inc.", template: "%s | Sigma Delta Sigma" },
-  description: "The Sigma Delta Sigma chapter of Phi Beta Sigma Fraternity, Inc., serving Woodstock, GA and beyond.",
+  description: "Meet the Sigma Delta Sigma Chapter of Phi Beta Sigma Fraternity, Inc. Explore our work in Cherokee and Cobb counties, attend a public event, or partner with us.",
 };
 
 // Heading fonts editors can pick in Site Settings.

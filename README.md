@@ -49,6 +49,10 @@ npm run check        # verifies old URLs still resolve / redirect (run after bui
 - Point the domain to Netlify; keep WordPress around for about 30 days as a fallback.
 
 ## How editors build pages
+
+The community homepage leads to the public calendar and a partnership inquiry at `/partner/`. Partnership and general inquiries both use the Netlify `contact` form. The submission includes the inquiry type and, when supplied, the organization name.
+
+The homepage banner uses the chapter’s [scholarship presentation photo](https://sds1914.com/scholarships/) until an editor supplies a banner image. The starter service story draws on [Feeding OUR Homeless](https://sds1914.com/feeding-our-homeless/). The current starter content is in `studio/seed/starter-content.ndjson`. For projects that imported the earlier starter, builds compare published fields with `original-sections.ndjson` and refresh matching defaults in the rendered site. Edited fields, added sections, and section order stay under the editor’s control. This comparison does not write to Sanity. In an older Studio, replace the original Welcome block with an Image + text section to publish a different featured story.
 - **Home page:** Studio → **Home page**.
 - **New page:** Studio → **All pages** → **+**. Under **Page settings**, fill in the title, click **Generate** for the web address, and pick a menu.
 - **Content** tab: **Add item** to add sections (Banner, Text, Image + text, Cards, Photo gallery, Video, Call to action, Quote, Upcoming events). Drag to reorder. Each section's **Style** group sets its background and spacing.

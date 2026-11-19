@@ -16,5 +16,5 @@ export default async function Home() {
     );
   }
 
-  return <PageSections sections={page.sections} />;
+  return <PageSections sections={page.sections} homepage />;
 }

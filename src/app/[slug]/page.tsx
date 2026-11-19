@@ -40,6 +40,17 @@ export default async function ContentPage({ params }: Props) {
         </article>
       ) : null}
       <PageSections sections={page.sections} />
+      {page.slug === "chapter-history" && (
+        <figure className="chapter-container pb-12">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/chapter-portrait.webp" width={1080} height={720} alt="Brothers of Sigma Delta Sigma gathered for a chapter portrait." loading="lazy" className="mx-auto w-full max-w-3xl" />
+        </figure>
+      )}
+      {page.section === "programs" && (
+        <div className="mx-auto max-w-3xl px-4 pb-16">
+          <a href="/partner/" className="primary-link">Partner on a community project</a>
+        </div>
+      )}
     </>
   );
 }

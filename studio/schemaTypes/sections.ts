@@ -82,7 +82,12 @@ export const imageText = defineType({
   icon: ImageIcon,
   fieldsets: [styleFieldset],
   fields: [
-    { ...imageWithAlt("image", "Image"), validation: (r) => r.required() },
+    { ...imageWithAlt("image", "Image"), validation: (r) => r.custom((image, context) => {
+      const section = context.parent as { _key?: string } | undefined;
+      const archiveStory = context.document?._id.replace(/^drafts\./, "") === "page-home" && section?._key === "k7";
+      return archiveStory || (image && typeof image === "object" && "asset" in image && Boolean(image.asset))
+        ? true : "Choose an image for this section.";
+    }) },
     heading,
     richText("body", "Text"),
     buttons,

@@ -2,7 +2,7 @@
 
 /* Phi Beta Sigma: royal blue and pure white */
 @theme {
-  --color-sigma: #0f3d8c;
+  --color-sigma: #153c9d;
   /* Editors can change --color-sigma in Site Settings; the tints follow it. */
   --color-sigma-dark: color-mix(in oklab, var(--color-sigma) 68%, black);
   --color-sigma-light: color-mix(in oklab, var(--color-sigma) 9%, white);
@@ -34,3 +34,83 @@ body {
 .on-dark .prose-content h3 { color: inherit; }
 .on-dark .prose-content a { @apply text-white; }
 .on-dark .prose-content blockquote { @apply border-white/60 text-white/85; }
+
+.chapter-container {
+  width: min(100% - clamp(2rem, 8vw, 8rem), 80rem);
+  margin-inline: auto;
+}
+.primary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.8rem;
+  padding: .65rem 1.25rem;
+  background: var(--color-sigma);
+  color: white;
+  border-radius: .25rem;
+  font-size: .9rem;
+  font-weight: 650;
+}
+.primary-link:hover { background: var(--color-sigma-dark); }
+:where(a, button, input, textarea):focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+.chapter-hero {
+  display: grid;
+  grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr);
+}
+.chapter-hero-copy {
+  align-self: center;
+  padding-block: clamp(2.75rem, 4vw, 5.5rem);
+  padding-inline: max(4vw, calc((100vw - 80rem) / 2)) clamp(2rem, 4vw, 4rem);
+}
+.chapter-hero-copy.compact { padding-block: 2.5rem; }
+.chapter-locality, .story-label {
+  font-size: .8rem;
+  font-weight: 650;
+  letter-spacing: .08em;
+}
+.chapter-locality { display: inline-flex; align-items: center; gap: .7rem; }
+.chapter-locality::before { content: ""; height: 1px; width: 2.5rem; background: currentColor; }
+.chapter-hero h1, .interior-intro h1, .story-layout h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -.055em;
+  line-height: 1.03;
+  text-wrap: balance;
+}
+.chapter-hero h1 { font-size: clamp(3.5rem, 6.4vw, 6.8rem); margin-block: 1.4rem; }
+.chapter-intro { max-width: 36ch; font-size: clamp(1rem, 1.25vw, 1.2rem); line-height: 1.65; }
+.chapter-hero-copy.text-center .chapter-intro { margin-inline: auto; }
+.chapter-hero-copy a { border-radius: .25rem; }
+.chapter-hero-photo { align-self: center; position: relative; }
+.chapter-hero-photo img { display: block; width: 100%; height: auto; }
+.chapter-hero-photo figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 3.3rem clamp(1rem, 2.4vw, 2.4rem) 1rem;
+  background: linear-gradient(transparent, rgb(0 0 0 / .8));
+  color: white;
+  font-size: .82rem;
+}
+.chapter-hero-photo figcaption span { border-right: 1px solid #ccc; margin-right: .55rem; padding-right: .55rem; font-weight: 700; }
+.story-layout { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 7vw, 7.5rem); align-items: center; }
+.story-layout > img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.story-label, .story-link { color: var(--color-sigma); }
+.story-layout h2 { font-size: clamp(2.25rem, 4.4vw, 4.7rem); margin-block: .75rem 1.2rem; }
+.story-layout .prose-content { max-width: 52ch; }
+.story-link { font-weight: 650; text-decoration: underline; text-underline-offset: .25em; }
+.on-dark :is(.story-link, .story-label) { color: inherit; }
+.inquiry-layout { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 7vw, 6rem); padding-block: clamp(3rem, 7vw, 7rem); }
+.interior-intro h1 { color: var(--color-sigma-dark); font-size: clamp(2.8rem, 5.5vw, 5.4rem); }
+.interior-intro .story-label { margin-bottom: .8rem; }
+.interior-intro p:not(.story-label) { color: var(--color-muted); max-width: 50ch; line-height: 1.7; margin-block: 1rem; }
+.inquiry-form { align-self: start; padding: clamp(1rem, 3vw, 2.5rem); border-top: 3px solid var(--color-sigma); background: var(--color-sigma-light); }
+.inquiry-form > :not([hidden], [type=hidden]) + :not([hidden]) { margin-top: 1.25rem; }
+.inquiry-form label { display: block; font-size: .9rem; font-weight: 600; }
+.inquiry-form :is(input, textarea) { font-weight: 400; font-size: 1rem; }
+@media (max-width: 780px) {
+  .chapter-hero, .inquiry-layout { grid-template-columns: 1fr; }
+  .chapter-hero-copy { padding: 2.5rem max(1rem, 4vw); }
+  .chapter-hero h1 { font-size: clamp(3.3rem, 10vw, 5rem); }
+  .story-layout { grid-template-columns: 1fr; gap: 1.75rem; }
+  .story-layout > img { max-height: 23rem; }
+}

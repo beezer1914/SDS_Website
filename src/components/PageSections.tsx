@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { PortableTextBlock } from "@portabletext/react";
 import RichText, { youtubeId } from "@/components/RichText";
 import EventCard from "@/components/EventCard";
@@ -34,14 +33,6 @@ function Heading({ text, center }: { text?: string; center?: boolean }) {
   return text ? <h2 className={`mb-6 font-display text-3xl text-sigma-dark md:text-4xl ${center ? "text-center" : ""}`}>{text}</h2> : null;
 }
 
-function SmartLink({ href, className, children }: { href: string; className?: string; children: React.ReactNode }) {
-  return href.startsWith("/") ? (
-    <Link href={href} className={className}>{children}</Link>
-  ) : (
-    <a href={href} className={className}>{children}</a>
-  );
-}
-
 function Buttons({ buttons, dark, center }: { buttons?: Button[]; dark: boolean; center?: boolean }) {
   if (!buttons?.length) return null;
   return (
@@ -52,9 +43,9 @@ function Buttons({ buttons, dark, center }: { buttons?: Button[]; dark: boolean;
           ? dark ? "bg-white text-sigma-dark hover:bg-sigma-light" : "bg-sigma text-white hover:bg-sigma-dark"
           : dark ? "border border-white/70 hover:bg-white/10" : "border border-sigma text-sigma hover:bg-sigma-light";
         return (
-          <SmartLink key={i} href={b.link ?? "/"} className={`rounded-full px-5 py-2.5 font-semibold transition ${cls}`}>
+          <a key={i} href={b.link ?? "/"} className={`rounded-full px-5 py-2.5 font-semibold transition ${cls}`}>
             {b.label}
-          </SmartLink>
+          </a>
         );
       })}
     </div>
@@ -67,13 +58,33 @@ function Picture({ image, width, className }: { image: unknown; width: number; c
   return src ? <img src={src} alt={(image as Img)?.alt ?? ""} loading="lazy" className={className} /> : null;
 }
 
-async function SectionView({ s }: { s: Section }) {
+async function SectionView({ s, homepage }: { s: Section; homepage: boolean }) {
   const dark = isDark(s.background);
 
   switch (s._type) {
     case "hero": {
       const bg = imageUrl(s.image, 2000);
       const center = s.align === "center";
+      if (homepage) {
+        return (
+          <section className={`chapter-hero ${BG[s.background ?? "brand"]}`}>
+            <div className={`chapter-hero-copy ${center ? "text-center" : ""} ${s.size === "compact" ? "compact" : ""}`}>
+              <p className="chapter-locality">Woodstock, Georgia</p>
+              <h1>{s.heading}</h1>
+              {s.subheading && <p className="chapter-intro">{s.subheading}</p>}
+              <Buttons buttons={s.buttons} dark={isDark(s.background ?? "brand")} center={center} />
+            </div>
+            <figure className="chapter-hero-photo">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={bg || "/images/scholarship-presentation.webp"}
+                srcSet={bg ? undefined : "/images/scholarship-presentation-small.webp 720w, /images/scholarship-presentation.webp 1400w"}
+                sizes="(max-width: 780px) 100vw, 54vw" width={1400} height={933} fetchPriority="high"
+                alt={bg ? s.image?.alt ?? "" : "Molly Lin and the brothers of Sigma Delta Sigma hold her scholarship check."} />
+              {!bg && <figcaption><span>Education</span> Anna James Academic Scholarship presentation</figcaption>}
+            </figure>
+          </section>
+        );
+      }
       const size = s.size === "compact" ? "py-14 md:py-20" : "py-24 md:py-36";
       return (
         <section
@@ -100,7 +111,26 @@ async function SectionView({ s }: { s: Section }) {
       );
     }
 
-    case "imageText":
+    case "imageText": {
+      const archivePhoto = homepage && s._key === "k7" && !s.image?.asset;
+      if (homepage && (archivePhoto || s.image?.asset)) {
+        return (
+          <section className={`${BG[s.background ?? "white"]} ${PAD[s.spacing ?? "normal"]}`}>
+            <div className="chapter-container story-layout">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={imageUrl(s.image, 1000) || "/images/packing-meals.webp"} width={820} height={615} loading="lazy"
+                className={s.imageSide === "right" ? "md:order-2" : ""}
+                alt={archivePhoto ? "A volunteer prepares a table full of bagged meals." : s.image?.alt ?? ""} />
+              <div>
+                {archivePhoto && <p className="story-label">Feeding OUR Homeless</p>}
+                <h2>{s.heading}</h2>
+                <RichText value={(s.body ?? []) as PortableTextBlock[]} />
+                <Buttons buttons={s.buttons} dark={dark} />
+              </div>
+            </div>
+          </section>
+        );
+      }
       return (
         <Wrap s={s} className="grid items-center gap-10 md:grid-cols-2">
           <div className={s.imageSide === "right" ? "md:order-2" : ""}>
@@ -113,6 +143,7 @@ async function SectionView({ s }: { s: Section }) {
           </div>
         </Wrap>
       );
+    }
 
     case "cardGrid":
       return (
@@ -133,7 +164,7 @@ async function SectionView({ s }: { s: Section }) {
               );
               const cls = "overflow-hidden rounded-xl bg-white text-ink shadow-sm transition hover:shadow-md";
               return c.link ? (
-                <SmartLink key={i} href={c.link} className={cls}>{inner}</SmartLink>
+                <a key={i} href={c.link} className={cls}>{inner}</a>
               ) : (
                 <div key={i} className={cls}>{inner}</div>
               );
@@ -208,14 +239,14 @@ async function SectionView({ s }: { s: Section }) {
         <Wrap s={s}>
           <div className="flex items-end justify-between">
             <Heading text={s.heading} />
-            <Link href="/events/" className="mb-6 text-sm font-semibold">All events →</Link>
+            <a href="/events/" className="mb-6 text-sm font-semibold">All events →</a>
           </div>
           {events.length > 0 ? (
             <div className="grid gap-6 md:grid-cols-3">
               {events.map((e) => <EventCard key={e.id} event={e} />)}
             </div>
           ) : (
-            <p className="opacity-80">No upcoming public events right now. Check back soon.</p>
+            <p>No public dates are listed yet. <a href="/contact/" className="font-semibold underline underline-offset-4">Ask about the next event</a>.</p>
           )}
         </Wrap>
       );
@@ -223,6 +254,6 @@ async function SectionView({ s }: { s: Section }) {
   }
 }
 
-export default function PageSections({ sections }: { sections?: Section[] }) {
-  return <>{sections?.map((s) => <SectionView key={s._key} s={s} />)}</>;
+export default function PageSections({ sections, homepage = false }: { sections?: Section[]; homepage?: boolean }) {
+  return <>{sections?.map((s) => <SectionView key={s._key} s={s} homepage={homepage} />)}</>;
 }

@@ -2,7 +2,7 @@ import { createClient } from "@sanity/client";
 import { createImageUrlBuilder } from "@sanity/image-url";
 import type { SectionKey } from "./site";
 import type { Page as PageDoc, SiteSettings as SettingsDoc } from "@/sanity.types";
-import { samplePages, sampleSettings } from "@/data/sample-content";
+import { refreshStarterFields, samplePages, sampleSettings } from "@/data/sample-content";
 
 export type SiteSettings = Omit<SettingsDoc, "_id" | "_type" | "_createdAt" | "_updatedAt" | "_rev">;
 export type Section = NonNullable<PageDoc["sections"]>[number];
@@ -46,10 +46,11 @@ export async function getAllPages(): Promise<PageSummary[]> {
 
 export async function getPage(slug: string): Promise<Page | null> {
   if (!client) return samplePages.find((p) => p.slug === slug) ?? null;
-  return client.fetch(
+  const page = await client.fetch<Page | null>(
     `*[_type == "page" && slug.current == $slug][0]{
       title, "slug": slug.current, "section": coalesce(section, "none"), summary, hideTitle, sections, body
     }`,
     { slug },
   );
+  return page ? refreshStarterFields(page) : null;
 }
