@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { PortableTextBlock } from "@portabletext/react";
 import PageSections from "@/components/PageSections";
+import ProgramDirector from "@/components/ProgramDirector";
 import RichText from "@/components/RichText";
 import { getAllPages, getPage } from "@/lib/content";
 
@@ -48,6 +49,7 @@ export default async function ContentPage({ params }: Props) {
       )}
       {page.section === "programs" && (
         <div className="mx-auto max-w-3xl px-4 pb-16">
+          <ProgramDirector programPath={`/${page.slug}`} />
           <a href="/partner/" className="primary-link">Partner on a community project</a>
         </div>
       )}

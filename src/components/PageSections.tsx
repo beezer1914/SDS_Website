@@ -1,6 +1,7 @@
 import type { PortableTextBlock } from "@portabletext/react";
 import RichText, { youtubeId } from "@/components/RichText";
 import EventCard from "@/components/EventCard";
+import ProgramDirector from "@/components/ProgramDirector";
 import { imageUrl, type Section } from "@/lib/content";
 import { getUpcomingEvents } from "@/lib/events";
 import type { Button } from "@/sanity.types";
@@ -158,6 +159,7 @@ async function SectionView({ s, homepage }: { s: Section; homepage: boolean }) {
                   <div className="p-6">
                     <h3 className="font-display text-xl text-sigma-dark">{c.title}</h3>
                     {c.text && <p className="mt-2 text-sm text-muted">{c.text}</p>}
+                    {homepage && <ProgramDirector programPath={c.link} compact />}
                     {c.link && <span className="mt-4 inline-block text-sm font-semibold text-sigma">Learn more →</span>}
                   </div>
                 </>
