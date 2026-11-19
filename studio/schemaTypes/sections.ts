@@ -106,6 +106,7 @@ export const imageText = defineType({
 export const cardGrid = defineType({
   name: "cardGrid",
   title: "Cards",
+  description: "Homepage cards that link to a Programs page use that page’s title and short summary. Use its local web address, such as /education/.",
   type: "object",
   icon: ThLargeIcon,
   fieldsets: [styleFieldset],

@@ -1,9 +1,9 @@
 import PageSections from "@/components/PageSections";
-import { getPage } from "@/lib/content";
+import { getHomePage } from "@/lib/content";
 
 // The home page is the Studio page whose web address is "home".
 export default async function Home() {
-  const page = await getPage("home");
+  const page = await getHomePage();
 
   if (!page) {
     return (

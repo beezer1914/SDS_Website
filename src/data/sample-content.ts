@@ -20,9 +20,16 @@ export const samplePages: Page[] = docs
 
 // Existing projects may have imported the original starter text. Apply revised
 // defaults only to fields that still exactly match that first import.
-const originals: Pick<Page, "slug" | "sections">[] = readFileSync(
+const originals: Pick<Page, "slug" | "sections" | "summary">[] = readFileSync(
   path.join(process.cwd(), "studio/seed/original-sections.ndjson"), "utf8",
 ).trim().split("\n").map((line) => JSON.parse(line));
+
+export function refreshStarterSummary<T extends Pick<Page, "slug" | "summary">>(page: T): T {
+  const original = originals.find((p) => p.slug === page.slug);
+  if (!original?.summary || page.summary !== original.summary) return page;
+  const current = samplePages.find((p) => p.slug === page.slug);
+  return current ? { ...page, summary: current.summary } : page;
+}
 
 export function refreshStarterFields(page: Page): Page {
   const original = originals.find((p) => p.slug === page.slug);

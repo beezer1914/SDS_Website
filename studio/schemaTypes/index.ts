@@ -134,7 +134,7 @@ const page = defineType({
     defineField({
       name: "summary",
       title: "Short summary",
-      description: "One or two sentences. Shown under the page title and in search results.",
+      description: "One or two sentences shown under the page title. For a Programs page, this is also the description on any homepage card linking to it.",
       type: "text",
       rows: 2,
       group: "settings",
