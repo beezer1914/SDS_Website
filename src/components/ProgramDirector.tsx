@@ -1,6 +1,6 @@
 const directors = new Map([
   ["/bigger-better-business", { name: "Bro. Angelo Hill", photo: "/images/angelo-hill.webp" }],
-  ["/education", { name: "Bro. Ben Green", photo: "/images/ben-green.webp" }],
+  ["/education", { name: "Bro. Dr. Ben Green", photo: "/images/ben-green.webp" }],
   ["/social-action", { name: "Bro. Tyler Gibbs", photo: "/images/tyler-gibbs.webp" }],
 ]);
 

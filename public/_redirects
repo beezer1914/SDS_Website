@@ -10,3 +10,4 @@
 
 # Old calendar plugin page
 /calendar/*            /events/  301
+/scholarships/          /education/scholarships/  301

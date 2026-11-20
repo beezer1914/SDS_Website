@@ -12,7 +12,7 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   // "home" is served at "/", not "/home/".
-  return (await getAllPages()).filter((p) => p.slug !== "home").map((p) => ({ slug: p.slug }));
+  return (await getAllPages()).filter((p) => p.slug !== "home" && !p.slug.includes("/")).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -50,7 +50,11 @@ export default async function ContentPage({ params }: Props) {
       {page.section === "programs" && (
         <div className="mx-auto max-w-3xl px-4 pb-16">
           <ProgramDirector programPath={`/${page.slug}`} />
-          <a href="/partner/" className="primary-link">Partner on a community project</a>
+          {page.slug === "education" ? (
+            <a href="/education/scholarships/" className="primary-link">Apply for scholarships</a>
+          ) : (
+            <a href="/partner/" className="primary-link">Partner on a community project</a>
+          )}
         </div>
       )}
     </>

@@ -2,10 +2,10 @@
 // Extend PUBLIC_URLS during the content migration as pages are kept, cut, or redirected.
 import { existsSync, readFileSync } from "node:fs";
 
-const PUBLIC_URLS = ["/", "/history/", "/the-founders/", "/message/", "/chapter-history/", "/contact/", "/contact/thanks/", "/events/", "/partner/", "/bigger-better-business/", "/education/", "/social-action/"];
+const PUBLIC_URLS = ["/", "/history/", "/the-founders/", "/message/", "/chapter-history/", "/contact/", "/contact/thanks/", "/events/", "/partner/", "/bigger-better-business/", "/education/", "/education/scholarships/", "/social-action/"];
 const REDIRECTED_URLS = [
   "/login/", "/profile/", "/password-recovery/", "/chapter-dues/", "/constitution/",
-  "/directory/", "/chapter-report/", "/templates/", "/calendar/",
+  "/directory/", "/chapter-report/", "/templates/", "/calendar/", "/scholarships/",
 ];
 
 const redirects = readFileSync("out/_redirects", "utf8")
