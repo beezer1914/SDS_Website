@@ -151,7 +151,7 @@ async function SectionView({ s, homepage }: { s: Section; homepage: boolean }) {
         <Wrap s={s}>
           <Heading text={s.heading} />
           {s.intro && <p className="-mt-2 mb-8 max-w-2xl opacity-80">{s.intro}</p>}
-          <div className={`grid gap-6 ${COLS[s.columns ?? 3]}`}>
+          <div className={`grid gap-6 ${COLS[s.columns ?? 3]} ${homepage ? "home-card-grid" : ""}`}>
             {s.cards?.map((c, i) => {
               const inner = (
                 <>

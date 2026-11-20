@@ -81,6 +81,21 @@ body {
 .chapter-intro { max-width: 36ch; font-size: clamp(1rem, 1.25vw, 1.2rem); line-height: 1.65; }
 .chapter-hero-copy.text-center .chapter-intro { margin-inline: auto; }
 .chapter-hero-copy a { border-radius: .25rem; }
+/* Share the image, title, summary, director and link rows across adjacent cards. */
+@media (min-width: 40rem) {
+  .home-card-grid > *,
+  .home-card-grid > * > div {
+    display: grid;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+  .home-card-grid > * { grid-row: span 5; }
+  .home-card-grid > * > div { grid-row: 2 / span 4; }
+  .home-card-grid h3 { grid-row: 1; }
+  .home-card-grid p { grid-row: 2; }
+  .home-card-grid figure { grid-row: 3; }
+  .home-card-grid > * > div > span { grid-row: 4; }
+}
 .chapter-hero-photo { align-self: center; position: relative; }
 .chapter-hero-photo img { display: block; width: 100%; height: auto; }
 .chapter-hero-photo figcaption {
