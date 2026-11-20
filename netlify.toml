@@ -6,3 +6,13 @@
   NODE_VERSION = "22"
   # Public SDS events only. Officer/member data is never included in this feed.
   CHAPTEROPS_EVENTS_URL = "https://chapterops.bluecolumnsystems.com/api/events/public/chapters/65a2397f-3f82-4fd1-8aca-f66ad9839b9d/events"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "frame-ancestors 'none'; form-action 'self'; base-uri 'none'; object-src 'none'"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Test resource restrictions before enforcement. Next.js emits inline hydration scripts.
+    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https://cdn.sanity.io; frame-src https://www.youtube-nocookie.com; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
