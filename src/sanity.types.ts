@@ -81,6 +81,8 @@ export type Video = {
 export type Gallery = {
   _type: "gallery";
   heading?: string;
+  intro?: string;
+  layout?: "grid" | "slideshow";
   images?: Array<{
     asset?: SanityImageAssetReference;
     media?: unknown;

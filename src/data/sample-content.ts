@@ -18,6 +18,13 @@ export const samplePages: Page[] = docs
   .filter((d) => d._type === "page")
   .map((d) => ({ ...d, slug: d.slug!.current, section: d.section ?? "none" }) as unknown as Page);
 
+// Local starter assets. Editors use uploaded Sanity images on a connected site.
+export const sampleShowcasePhotos = [
+  { id: "brotherhood", src: "/images/chapter-portrait.webp", alt: "Sigma Delta Sigma members gathered for a chapter portrait.", caption: "Brotherhood · Sigma Delta Sigma chapter members" },
+  { id: "service", src: "/images/packing-meals.webp", alt: "A volunteer prepares a table full of bagged meals.", caption: "Community service · Packing meals for Feeding OUR Homeless" },
+  { id: "education", src: "/images/scholarship-presentation.webp", alt: "Donovan J. Sutton holds his scholarship check alongside two chapter members.", caption: "Education · 2025 Bishop Stephen Hall Sr. Scholarship presentation" },
+];
+
 // Only replace fields that exactly match a previously shipped starter value.
 const originals: Pick<Page, "slug" | "sections" | "summary">[] = readFileSync(
   path.join(process.cwd(), "studio/seed/original-sections.ndjson"), "utf8",

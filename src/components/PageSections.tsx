@@ -1,7 +1,9 @@
 import type { PortableTextBlock } from "@portabletext/react";
 import RichText, { youtubeId } from "@/components/RichText";
 import EventCard from "@/components/EventCard";
+import PhotoSlideshow from "@/components/PhotoSlideshow";
 import ProgramDirector from "@/components/ProgramDirector";
+import { sampleShowcasePhotos } from "@/data/sample-content";
 import { imageUrl, type Section } from "@/lib/content";
 import { getUpcomingEvents } from "@/lib/events";
 import type { Button } from "@/sanity.types";
@@ -176,9 +178,46 @@ async function SectionView({ s, homepage }: { s: Section; homepage: boolean }) {
       );
 
     case "gallery":
+      if (s.layout === "slideshow") {
+        const slides = (s.images ?? []).flatMap((image) => {
+          const src = image.asset && imageUrl(image, 1440);
+          if (!src) return [];
+          return [{
+            id: image._key,
+            src,
+            smallSrc: imageUrl(image, 720) ?? src,
+            alt: image.alt ?? "",
+            caption: image.caption,
+          }];
+        });
+        const isHomeShowcase = homepage && s._key === "chapter-showcase";
+        const photos = isHomeShowcase && !process.env.NEXT_PUBLIC_SANITY_PROJECT_ID && !slides.length
+          ? sampleShowcasePhotos
+          : slides;
+        if (!photos.length) return null;
+        if (isHomeShowcase) {
+          return (
+            <Wrap s={s} className="grid items-center gap-8 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-12">
+              <div>
+                {s.heading && <h2 className="font-display text-4xl leading-tight tracking-tight text-sigma-dark lg:text-5xl">{s.heading}</h2>}
+                {s.intro && <p className="mt-4 max-w-md text-base leading-relaxed opacity-90">{s.intro}</p>}
+              </div>
+              <PhotoSlideshow slides={photos} label={s.heading || "Photo gallery"} sizes="(min-width: 1152px) 644px, (min-width: 768px) 57vw, calc(100vw - 2rem)" />
+            </Wrap>
+          );
+        }
+        return (
+          <Wrap s={s} width="max-w-5xl">
+            <Heading text={s.heading} />
+            {s.intro && <p className="-mt-2 mb-6 max-w-2xl opacity-90">{s.intro}</p>}
+            <PhotoSlideshow slides={photos} label={s.heading || "Photo gallery"} />
+          </Wrap>
+        );
+      }
       return (
         <Wrap s={s}>
           <Heading text={s.heading} />
+          {s.intro && <p className="-mt-2 mb-6 max-w-2xl opacity-90">{s.intro}</p>}
           <div className={`grid grid-cols-2 gap-4 ${COLS[s.columns ?? 3]}`}>
             {s.images?.map((img, i) => (
               <figure key={i}>

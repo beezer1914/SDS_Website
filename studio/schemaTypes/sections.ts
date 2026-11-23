@@ -144,6 +144,14 @@ export const gallery = defineType({
   fieldsets: [styleFieldset],
   fields: [
     heading,
+    defineField({ name: "intro", title: "Introduction", type: "text", rows: 3 }),
+    defineField({
+      name: "layout",
+      title: "Display as",
+      type: "string",
+      options: { list: [{ title: "Grid", value: "grid" }, { title: "Slideshow", value: "slideshow" }], layout: "radio" },
+      initialValue: "grid",
+    }),
     defineField({
       name: "images",
       type: "array",
@@ -159,10 +167,17 @@ export const gallery = defineType({
       ],
       options: { layout: "grid" },
     }),
-    columnsField(3),
+    { ...columnsField(3), hidden: ({ parent }) => parent?.layout === "slideshow" },
     ...styleFields,
   ],
-  preview: { select: { title: "heading", images: "images", media: "images.0" }, prepare: ({ title, images, media }) => ({ title: title || "Photo gallery", subtitle: `Gallery · ${images?.length ?? 0} photos`, media }) },
+  preview: {
+    select: { title: "heading", images: "images", media: "images.0", layout: "layout" },
+    prepare: ({ title, images, media, layout }) => ({
+      title: title || "Photo gallery",
+      subtitle: `${layout === "slideshow" ? "Slideshow" : "Grid"} · ${images?.length ?? 0} photos`,
+      media,
+    }),
+  },
 });
 
 export const video = defineType({
