@@ -18,6 +18,7 @@ const HEADING_FONTS = {
   serif: '"Playfair Display Variable", Georgia, serif',
   sans: '"Inter Variable", ui-sans-serif, system-ui, sans-serif',
   bold: '"Montserrat Variable", ui-sans-serif, system-ui, sans-serif',
+  arial: "Arial, Helvetica, sans-serif",
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

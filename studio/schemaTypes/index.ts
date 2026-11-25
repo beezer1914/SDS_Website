@@ -66,6 +66,7 @@ const siteSettings = defineType({
           { title: "Classic serif (Playfair)", value: "serif" },
           { title: "Modern (Inter)", value: "sans" },
           { title: "Bold & strong (Montserrat)", value: "bold" },
+          { title: "Arial", value: "arial" },
         ],
         layout: "radio",
       },

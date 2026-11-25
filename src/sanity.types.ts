@@ -364,7 +364,7 @@ export type SiteSettings = {
     _type: "image";
   };
   brandColor?: Color;
-  headingFont?: "serif" | "sans" | "bold";
+  headingFont?: "serif" | "sans" | "bold" | "arial";
   contactEmail?: string;
   facebookUrl?: string;
   instagramUrl?: string;
